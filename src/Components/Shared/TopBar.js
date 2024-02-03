@@ -14,7 +14,7 @@ import App from "../../App";
 const { Header } = Layout;
 
 const TopBar = ({ history, setOpen, isMobile }) => {
-  const { setSidebarToggle, sidebarToggle, userDetails } = useContext(context);
+  const { setSidebarToggle, sidebarToggle,toggleSidebar , userDetails } = useContext(context);
   const [returnLogout, setReturnLogout] = useState(false);
 
   const handleClick = () => {
@@ -28,22 +28,14 @@ const TopBar = ({ history, setOpen, isMobile }) => {
   const menu = (
     <Menu>
       <Menu.Item key="profile">
-        <Link to="users-profile.html">
+        <Link to="/" style={{ textDecoration: 'none' }}>
           <UserOutlined />
-          My Profile
+          <span style={{marginLeft:10}}>My Profile</span>
         </Link>
       </Menu.Item>
-      <Menu.Divider />
-      <Menu.Item key="account-settings">
-        <Link to="sljn">
-          <SettingOutlined />
-          Account Settings
-        </Link>
-      </Menu.Item>
-      <Menu.Divider />
-      <Menu.Item key="sign-out" onClick={handleClick}>
+      <Menu.Item key="sign-out" onClick={(e)=>handleClick(e)}>
         <LogoutOutlined />
-        Sign Out
+        <span style={{marginLeft:10}}>Sign Out</span>
       </Menu.Item>
     </Menu>
   );
@@ -76,23 +68,18 @@ const TopBar = ({ history, setOpen, isMobile }) => {
           className=" toggle-sidebar-btn"
           onClick={() => {
             setOpen((prev) => !prev);
-            setSidebarToggle(!sidebarToggle);
+            // setSidebarToggle(!sidebarToggle);
+            toggleSidebar()
           }}
         >
           {sidebarToggle ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
         </i>
       </div>
-      <Menu theme="light" mode="horizontal" className="ms-auto">
-        <Menu.Item key="search" className="d-block d-lg-none">
-          <a className="nav-link nav-icon search-bar-toggle " href="iug">
-            <i className="bi bi-search"></i>
-          </a>
-        </Menu.Item>
+      <Menu theme="light" mode="horizontal" className="ms-auto" style={{height:60}}>
         <Menu.Item key="profile" className="nav-item dropdown pe-3">
           <Dropdown overlay={menu} placement="bottomRight" arrow>
-            <a
+            <p
               className="nav-link nav-profile d-flex align-items-center pe-0"
-              href="hg"
             >
               <Avatar src="assets/img/profile-img.jpg" />
               <span
@@ -102,7 +89,7 @@ const TopBar = ({ history, setOpen, isMobile }) => {
               >
                 {userDetails?.userName && userDetails.userName.toUpperCase()}
               </span>
-            </a>
+            </p>
           </Dropdown>
         </Menu.Item>
       </Menu>

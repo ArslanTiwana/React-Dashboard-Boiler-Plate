@@ -5,8 +5,11 @@ import context from './ContextState';
 const State = (props) => {
     const [sidebarToggle, setSidebarToggle] = useState(true);
     const [userDetails,setUserDetails]=useState({userType:'plates'})
+    const toggleSidebar = () => {
+        setSidebarToggle((prev) => !prev);
+      };
     return (
-        <context.Provider value={{ sidebarToggle, setSidebarToggle,setUserDetails,userDetails }}>
+        <context.Provider value={{ sidebarToggle, setSidebarToggle,setUserDetails,userDetails,toggleSidebar }}>
             <Container fluid>
                 {props.children}
             </Container>

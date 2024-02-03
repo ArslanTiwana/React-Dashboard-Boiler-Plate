@@ -230,3 +230,15 @@
     font-weight: 500;
     color: rgba(26,51,83,.6)!important;
   }
+  .login {
+    background-size: cover;
+    min-height: 100vh;
+    display: flex;
+    align-items: center ;
+  }
+
+  .container-fluid{
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+  }
+  

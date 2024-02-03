@@ -12,7 +12,7 @@ import { Apis } from "../Apis";
 
 const { Option } = Select;
 
-const Register = ({ userForm, refresh, setRefresh,userId ,setUserId}) => {
+const UserForm = ({ setUserForm, refresh, setRefresh, userId, setUserId }) => {
   const [loading, setLoading] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [form] = Form.useForm();
@@ -59,7 +59,6 @@ const Register = ({ userForm, refresh, setRefresh,userId ,setUserId}) => {
     form.validateFields().then((values) => {
       setLoading(true);
       setButtonDisabled(true);
-
       const registerUser = {
         name: values.name,
         email: values.email,
@@ -67,7 +66,7 @@ const Register = ({ userForm, refresh, setRefresh,userId ,setUserId}) => {
         phoneNumber: values.phoneNumber,
         userType: selectedUserType,
       };
-console.log(selectedUserType)
+      console.log(selectedUserType)
       Apis()
         .register(registerUser)
         .then((res) => {
@@ -110,7 +109,7 @@ console.log(selectedUserType)
         userType: selectedUserType,
       };
       Apis()
-        .updateUser(userId,editUser)
+        .updateUser(userId, editUser)
         .then((res) => {
           if (
             (res.data.code === 200 || res.data.code === 201)
@@ -142,44 +141,44 @@ console.log(selectedUserType)
 
   const handleCancel = () => {
     setUserId(null)
-    userForm(false);
+    setUserForm(false);
     form.resetFields();
   };
 
   return (
     <Modal
-    visible={true}
-    onCancel={handleCancel}
-    footer={[
-      userId ? (
+      visible={true}
+      onCancel={handleCancel}
+      footer={[
+        userId ? (
+          <Button
+            key="update"
+            type="primary"
+            disabled={buttonDisabled}
+            onClick={handleEditSubmit}
+          >
+            Update
+          </Button>
+        ) : (
+          <Button
+            key="create"
+            type="primary"
+            disabled={buttonDisabled}
+            onClick={handleSubmit}
+          >
+            Create Account
+          </Button>
+        ),
         <Button
-          key="update"
-          type="primary"
+          key="cancel"
+          onClick={handleCancel}
           disabled={buttonDisabled}
-          onClick={handleEditSubmit}
         >
-          Update
-        </Button>
-      ) : (
-        <Button
-          key="create"
-          type="primary"
-          disabled={buttonDisabled}
-          onClick={handleSubmit}
-        >
-          Create Account
-        </Button>
-      ),
-      <Button
-        key="cancel"
-        onClick={handleCancel}
-        disabled={buttonDisabled}
-      >
-        Cancel
-      </Button>,
-    ]}
-  >
-  
+          Cancel
+        </Button>,
+      ]}
+    >
+
       <Spin spinning={loading}>
         <Form form={form} layout="vertical" onFinish={handleSubmit}>
           <Form.Item
@@ -219,23 +218,23 @@ console.log(selectedUserType)
               onChange={handleInputChange}
             />
           </Form.Item>
-{!userId &&
-          <Form.Item
-            label="Password"
-            name="password"
-            rules={[
-              { required: false, message: "Please enter password" },
-              { min: 6, message: "Password must be at least 6 characters long" },
-            ]}
-          >
-            <Input
-              prefix={<LockOutlined />}
-              type="password"
-              placeholder="Enter Password"
-              onChange={handleInputChange}
-            />
-          </Form.Item>
-}
+          {!userId &&
+            <Form.Item
+              label="Password"
+              name="password"
+              rules={[
+                { required: false, message: "Please enter password" },
+                { min: 6, message: "Password must be at least 6 characters long" },
+              ]}
+            >
+              <Input
+                prefix={<LockOutlined />}
+                type="password"
+                placeholder="Enter Password"
+                onChange={handleInputChange}
+              />
+            </Form.Item>
+          }
           <Form.Item
             label="Select User Type"
             name="userType"
@@ -244,7 +243,7 @@ console.log(selectedUserType)
             <Select
               options={userTypeOptions}
               placeholder="Select User Type"
-              onChange={(ut) => {console.log(ut); setSelectedUserType(ut)}}
+              onChange={(ut) => { console.log(ut); setSelectedUserType(ut) }}
             />
           </Form.Item>
         </Form>
@@ -253,4 +252,4 @@ console.log(selectedUserType)
   );
 };
 
-export default Register;
+export default UserForm;

@@ -1,35 +1,27 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  Button,
-  Breadcrumb,
-  BreadcrumbItem,
-  CardBody,
-  Container,
-  Row,
-  Col,
-} from "reactstrap";
+import { Card, Breadcrumb, Button, Row, Col } from "antd";
 import context from "../../Context/ContextState";
 import UsersTable from "./UsersTable";
-import Register from "./Register";
+import UserForm from "./UserForm";
+
+const { Meta } = Card;
 
 const ViewUsers = () => {
-  const [registerUserModal, userForm] = useState(false);
-  const [editUserModal, setEditUserModal] = useState(false);
+  const [userForm, setUserForm] = useState(false);
   const [userId, setUserId] = useState(null);
   const [refresh, setRefresh] = useState(false);
   const { sidebarToggle } = useContext(context);
 
   return (
     <div>
-      {registerUserModal ? (
-        <Register
-          userForm={userForm}
+      {userForm ? (
+        <UserForm
+          setUserForm={setUserForm}
           refresh={refresh}
           setRefresh={setRefresh}
           userId={userId}
           setUserId={setUserId}
-
         />
       ) : null}{" "}
       <main id={sidebarToggle ? "main" : "main2"}>
@@ -37,20 +29,21 @@ const ViewUsers = () => {
           <h1>Users</h1>
           <nav>
             <Row>
-              <Col md="9">
-                <Breadcrumb>
-                  <BreadcrumbItem>
-                    <Link to="/">Dashboard</Link>
-                  </BreadcrumbItem>
-                  <BreadcrumbItem active>Users</BreadcrumbItem>
+              <Col md={18}>
+                <Breadcrumb style={{ margin: '16px 0' }}>
+                  <Breadcrumb.Item>
+                    <Link to="/" style={{ textDecoration: 'none' }}>
+                      Dashboard
+                    </Link>
+                  </Breadcrumb.Item>
+                  <Breadcrumb.Item>Users</Breadcrumb.Item>
                 </Breadcrumb>
               </Col>
-              <Col md="3">
+              <Col md={6} style={{ textAlign: 'right', marginRight: 0 }}>
                 <Button
-                  color="success"
-                  style={{ marginLeft: 120 }}
-                  size="sm"
-                  onClick={() => userForm(true)}
+                  type="primary"
+                  size="medium"
+                  onClick={() => setUserForm(true)}
                 >
                   Add New User
                 </Button>
@@ -58,16 +51,18 @@ const ViewUsers = () => {
             </Row>
           </nav>
         </div>
-        <Container className="card">
-          <CardBody>
-            <UsersTable
-              refresh={refresh}
-              setRefresh={setRefresh}
-              userForm={userForm}
-              setUserId={setUserId}
-            />
-          </CardBody>
-        </Container>
+        <Card className="card">
+          <Meta
+            title={
+              <UsersTable
+                refresh={refresh}
+                setRefresh={setRefresh}
+                setUserForm={setUserForm}
+                setUserId={setUserId}
+              />
+            }
+          />
+        </Card>
       </main>
     </div>
   );

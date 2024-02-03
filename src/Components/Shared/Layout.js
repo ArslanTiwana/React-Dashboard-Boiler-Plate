@@ -49,13 +49,13 @@ function Layout() {
 
   console.log(userDetails?.userType)
   const MainContent = () => (
-    <div style={{ left: sidebarToggle && -300 }}>
+    <div style={{ left: sidebarToggle && -250 }}>
       <TopBar {...{ setOpen, onClose ,isMobile}} />
       {isMobile ? (
         <Drawer
           title="Basic Drawer"
           placement={"left"}
-          width={300}
+          width={250}
           onClose={onClose}
           open={open}
         >

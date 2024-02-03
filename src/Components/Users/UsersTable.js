@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from "react";
-import DataTable from "react-data-table-component";
-import { Tooltip, Button, Tag } from "antd";
+import { Table, Input, Button, Tag, Tooltip, Spin } from "antd";
 import {
   CloseOutlined,
   CheckOutlined,
   EditOutlined,
   DeleteOutlined,
 } from "@ant-design/icons";
-import { Input, Spinner } from "reactstrap";
+import { Spinner } from "reactstrap";
 import { Apis } from "../Apis";
 import swal from "sweetalert";
 
-const UserTable = ({ refresh, setRefresh, userForm, setUserId }) => {
+const UserTable = ({ refresh, setRefresh, setUserForm, setUserId }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [filteredData, setFilteredData] = useState(data);
   const [search, setSearch] = useState("");
+  const [modalVisible, setModalVisible] = useState(false);
 
   const changeUserStatus = (id, action) => {
     swal({
@@ -57,7 +57,7 @@ const UserTable = ({ refresh, setRefresh, userForm, setUserId }) => {
   const deleteUser = (id, action) => {
     swal({
       title: "Are you sure?",
-      text: "This user will be deleting and this action cannot be undone.",
+      text: "This user will be deleted and this action cannot be undone.",
       icon: "warning",
       buttons: true,
       dangerMode: true,
@@ -98,7 +98,6 @@ const UserTable = ({ refresh, setRefresh, userForm, setUserId }) => {
       .getUsers()
       .then((res) => {
         if (res.data.code === 200) {
-          console.log(res.data.data)
           setData(res.data.data);
           setLoading(false);
         } else {
@@ -123,72 +122,73 @@ const UserTable = ({ refresh, setRefresh, userForm, setUserId }) => {
     }
   }, [data, search]);
 
+  const handleEditUser = (id) => {
+    setUserForm(true);
+    setUserId(id);
+  };
+
   const columns = [
     {
-      id: 1,
-      name: "Id",
-      selector: (row) => row.id,
-      sortable: true,
-      reorder: true,
-      width:"50px"
-
+      title: "Id",
+      dataIndex: "id",
+      key: "id",
+      sorter: (a, b) => a.id - b.id,
+      width: 50,
     },
     {
-      id: 2,
-      name: "UserName",
-      selector: (row) => row.userName,
-      sortable: true,
-      reorder: true,
+      title: "UserName",
+      dataIndex: "userName",
+      key: "userName",
+      sorter: (a, b) => a.userName.localeCompare(b.userName),
     },
     {
-      id: 5,
-      name: "User Type",
-      selector: (row) => row.userType,
-      cell: (row) => (
+      title: "User Type",
+      dataIndex: "userType",
+      key: "userType",
+      render: (userType) => (
         <Tag className="text-capitalize" color={"volcano"}>
-          {row.userType}
+          {userType}
         </Tag>
       ),
     },
     {
-      id: 6,
-      name: "Status",
-      selector: (row) => row.status,
-      cell: (row) => (
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
+      render: (status) => (
         <Tag
           className="text-capitalize"
-          color={row.status === "active" ? "cyan" : "red"}
+          color={status === "active" ? "cyan" : "red"}
         >
-          {row.status}
+          {status}
         </Tag>
       ),
     },
     {
-      name: "Action",
-      cell: (row) => (
-        <div className="text-right d-flex justify-content-end">
+      title: "Action",
+      dataIndex: "id",
+      key: "action",
+      render: (id, record) => (
+        //justify-content-end
+        <div className="text-right d-flex ">
           <Tooltip title="Edit" style={{ marginRight: 5 }}>
             <Button
               type="primary"
               style={{ marginRight: 5 }}
               className="mr-5"
               icon={<EditOutlined />}
-              onClick={() => {
-                userForm(true);
-                console.log(row.id)
-                setUserId(()=>row.id);
-              }}
+              onClick={() => handleEditUser(id)}
               size="small"
             />
           </Tooltip>
-          {row.status == "active" ? (
+          {record.status === "active" ? (
             <Tooltip title="Deactivate User">
               <Button
                 danger
                 icon={<CloseOutlined />}
                 style={{ marginRight: 5 }}
                 className="mr-5"
-                onClick={() => changeUserStatus(row.id, "inactive")}
+                onClick={() => changeUserStatus(id, "inactive")}
                 size="small"
               />
             </Tooltip>
@@ -199,7 +199,7 @@ const UserTable = ({ refresh, setRefresh, userForm, setUserId }) => {
                 icon={<CheckOutlined />}
                 style={{ marginRight: 5 }}
                 className="mr-2"
-                onClick={() => changeUserStatus(row.id, "active")}
+                onClick={() => changeUserStatus(id, "active")}
                 size="small"
               />
             </Tooltip>
@@ -208,7 +208,7 @@ const UserTable = ({ refresh, setRefresh, userForm, setUserId }) => {
             <Button
               danger
               icon={<DeleteOutlined />}
-              onClick={() => deleteUser(row.id)}
+              onClick={() => deleteUser(id)}
               size="small"
             />
           </Tooltip>
@@ -219,17 +219,17 @@ const UserTable = ({ refresh, setRefresh, userForm, setUserId }) => {
 
   return (
     <div>
-      {!loading ? (
-        <DataTable
+      <Spin spinning={loading}>
+
+        <Table
           columns={columns}
-          data={filteredData}
-          defaultSortFieldId={1}
-          pagination
-          fixedHeader
-          fixedHeaderScrollHeight="500px"
-          highlightOnHover
-          subHeader
-          subHeaderComponent={
+          dataSource={filteredData}
+          pagination={{ pageSize: 10 }}
+          scroll={{ x: "max-content" }}
+          onChange={(pagination, filters, sorter) => {
+            console.log(pagination, filters, sorter);
+          }}
+          title={() => (
             <Input
               type="text"
               placeholder="Search Here"
@@ -237,22 +237,9 @@ const UserTable = ({ refresh, setRefresh, userForm, setUserId }) => {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
-          }
-          subHeaderAlign="left"
+          )}
         />
-      ) : (
-        <>
-          <br></br>
-          <br></br>
-          <br></br>
-          <div className="text-center">
-            <Spinner size="m" color="success" style={{ textAlign: "center" }} />
-          </div>
-          <br></br>
-          <br></br>
-          <br></br>
-        </>
-      )}
+</Spin>
     </div>
   );
 };
