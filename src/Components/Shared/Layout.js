@@ -12,6 +12,7 @@ import ViewUsers from "../Users/ViewUsers";
 import Charts from "../Admin Dashboard/charts";
 import { Drawer, Grid } from "antd";
 import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
+import ViewLogs from "../Logs/ViewLogs";
 
 function Layout() {
   const { setUserDetails, userDetails } = useContext(context);
@@ -95,6 +96,15 @@ function Layout() {
             "color_print",
           ].includes(userDetails?.userType) ? (
             <ViewUsers />
+          ) : (
+            <Redirect to="/unauthorized" />
+          )}
+        </Route>
+        <Route exact path="/logs">
+          {[
+            "admin",
+          ].includes(userDetails?.userType) ? (
+            <ViewLogs />
           ) : (
             <Redirect to="/unauthorized" />
           )}

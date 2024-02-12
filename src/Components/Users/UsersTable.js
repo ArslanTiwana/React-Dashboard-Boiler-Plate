@@ -47,7 +47,6 @@ const UserTable = ({ refresh, setRefresh, setUserForm, setUserId }) => {
             }
           })
           .catch((err) => {
-            console.log(err.data.message);
             setLoading(false);
           });
       }
@@ -85,7 +84,6 @@ const UserTable = ({ refresh, setRefresh, setUserForm, setUserId }) => {
             }
           })
           .catch((err) => {
-            console.log(err.data.message);
             setLoading(false);
           });
       }
@@ -110,7 +108,6 @@ const UserTable = ({ refresh, setRefresh, setUserForm, setUserId }) => {
         }
       })
       .catch((err) => {
-        console.log(err.data.message);
         setLoading(false);
       });
   }, [refresh]);

@@ -27,6 +27,7 @@ const SideBar = ({ onClose }) => {
       "Job Cards",
       "Invoices",
       "Users",
+      "Logs",
       "Clients",
       "Business",
       "Settings",
@@ -75,6 +76,19 @@ const SideBar = ({ onClose }) => {
             }}
           > Users
             <Link to="/viewusers" className="nav-link">
+            </Link>
+          </Menu.Item>
+        )}
+        {shouldRenderTab("Logs") && (
+          <Menu.Item
+            key="Logs"
+            icon={<TeamOutlined />}
+            onClick={() => {
+              setSelectedBtn("Logs");
+              onClose();
+            }}
+          > Logs
+            <Link to="/logs" className="nav-link">
             </Link>
           </Menu.Item>
         )}

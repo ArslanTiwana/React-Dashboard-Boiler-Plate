@@ -89,7 +89,6 @@ const UserForm = ({ setUserForm, refresh, setRefresh, userId, setUserId }) => {
           }
         })
         .catch((err) => {
-          console.log(err.data.message);
         })
         .finally(() => {
           setLoading(false);
@@ -130,7 +129,6 @@ const UserForm = ({ setUserForm, refresh, setRefresh, userId, setUserId }) => {
           }
         })
         .catch((err) => {
-          console.log(err.data.message);
         })
         .finally(() => {
           setLoading(false);

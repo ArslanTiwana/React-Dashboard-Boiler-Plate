@@ -35,36 +35,42 @@ const Login = ({ setValues, values }) => {
   // };
 
   const handleSubmit = (e) => {
+    localStorage.setItem("token", '123165465465');
+    localStorage.setItem("user", JSON.stringify({userType:'admin'}));
+
+    history.push({
+      pathname: `/`,
+    });
   console.log(credentials)
-      setLoading(true);
-      Apis()
-        .login(credentials)
-        .then((res) => {
-          if (res.data.code === 200) {
-            localStorage.setItem("token", res.data.data.token);
-            localStorage.setItem("user", JSON.stringify(res.data.data.user));
-            setUserDetails(res.data.data.user);
-            setValues({
-              ...values,
-              token: res.data.data,
-            });
-            history.push({
-              pathname: `/`,
-            });
-            setLoading(false);
-          } else {
-            swal({
-              title: res.data.message,
-              icon: "error",
-              buttons: "OK",
-            });
-            setLoading(false);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-          setLoading(false);
-        });
+  //     setLoading(true);
+  //     Apis()
+  //       .login(credentials)
+  //       .then((res) => {
+  //         if (res.data.code === 200) {
+  //           localStorage.setItem("token", res.data.data.token);
+  //           localStorage.setItem("user", JSON.stringify(res.data.data.user));
+  //           setUserDetails(res.data.data.user);
+  //           setValues({
+  //             ...values,
+  //             token: res.data.data,
+  //           });
+  //           history.push({
+  //             pathname: `/`,
+  //           });
+  //           setLoading(false);
+  //         } else {
+  //           swal({
+  //             title: res.data.message,
+  //             icon: "error",
+  //             buttons: "OK",
+  //           });
+  //           setLoading(false);
+  //         }
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //         setLoading(false);
+  //       });
     
   };
 
