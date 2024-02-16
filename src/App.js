@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import GlobalContext from "./Context/Context";
 import "bootstrap/dist/css/bootstrap.min.css";
 import 'react-datepicker/dist/react-datepicker.css';
-import LoginRedirect from "./Components/Shared/LoginRedirect";
+import Layout from "./Shared/Layout";
 
 
 
@@ -14,7 +14,7 @@ function App() {
       <Switch>
         <Route exact path={"*"}>
           <GlobalContext>
-            <LoginRedirect />
+            <Layout />
           </GlobalContext>
         </Route>
       </Switch>

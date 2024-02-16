@@ -1,0 +1,172 @@
+.navbar {
+  background-color: #fff;
+  height: 55px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  font-family: CarmenSansBold;
+  border-bottom: 1px solid #000000;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 80px;
+  max-width: 1500px;
+  position: relative;
+  padding: 0 0px;
+}
+
+.nav-logo {
+  align-items: center;
+  margin-left: 60px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  margin-bottom: 10px;
+}
+
+.nav-logo .icon-div {
+  background: rgb(24, 22, 22);
+  display: flex;
+  justify-content: center;
+  margin-bottom: 35px;
+}
+
+.nav-menu {
+  display: flex;
+  list-style: none;
+  text-align: center;
+  margin-left: 40%;
+}
+.ant-btn-default{
+    background: #004771 !important;
+    border-color: #004771 ;
+    width:70px;
+    border-radius: 5px ;
+}
+.nav-signup-button .ant-btn-default{
+    background: #fff !important;
+    border-color: #004771 ;
+    width:70px;
+}
+.nav-signup-button .ant-btn{
+    font-family: 'League Spartan';
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 15px;
+    color: #004771;
+    padding:0px 
+}
+.ant-btn{
+    font-family: 'League Spartan';
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 15px;
+    color: #fff;
+}
+.nav-links {
+    text-decoration: none;
+    width: 78px;
+    height: 15px;
+    left: 200px;
+    font-family: 'League Spartan';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 15px;
+    color: #004771;
+}
+.nav-button {
+    width: 78px;
+    height: 15px;
+    left: 200px;
+    line-height: 15px;
+}
+
+.nav-item {
+  line-height: 40px;
+  margin-right: 20px;
+  color: #000000;
+  margin-bottom: 15px;
+
+}
+
+.nav-item:after {
+  content: "";
+  display: block;
+  height: 3px;
+  width: 0;
+  background: transparent;
+  transition: width 0.7s ease, background-color 0.5s ease;
+}
+
+.nav-item .nav-links:hover {
+  color: #004771;
+}
+
+.nav-item:hover:after {
+  width: 100%;
+  background: #004771;
+}
+
+.nav-item .active {
+  color: #fff !important;
+}
+
+
+
+@media screen and (max-width: 960px) {
+  .nav-container {
+    padding: 0 50px;
+  }
+
+  .nav-menu {
+    display: flex;
+    flex-direction: column;
+    width: 89%;
+    border-top: 1px solid #fff;
+    position: absolute;
+    top: 75px;
+    left: -100%;
+    opacity: 1;
+    transition: all 0.5s ease;
+  }
+
+  .nav-menu.active {
+    background: #febe10;
+    left: 0px;
+    opacity: 1;
+    transition: all 0.5s ease;
+    z-index: 1;
+  }
+  .nav-item .active {
+    color: #fff;
+    border: none;
+  }
+  .nav-links {
+    /* padding: 1.5rem; */
+    width: 80%;
+    display: table;
+  }
+
+  .nav-icon {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translate(-100%, -50%);
+    width: 2rem;
+    height: 2rem;
+    margin-right: 20px;
+    cursor: pointer;
+    color: #ffdd40;
+  }
+}
