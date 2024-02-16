@@ -9,6 +9,7 @@
   top: 0;
   z-index: 20;
   font-family: CarmenSansBold;
+  border-bottom: 1px solid #000000;
 }
 
 .nav-container {
@@ -79,8 +80,8 @@
     font-family: 'League Spartan';
     font-style: normal;
     font-weight: 600;
-    line-height: 15px;
     font-size: 16px;
+    line-height: 15px;
     color: #004771;
 }
 .nav-button {
@@ -91,6 +92,7 @@
 }
 
 .nav-item {
+  line-height: 40px;
   margin-right: 20px;
   color: #000000;
   margin-bottom: 15px;
@@ -100,7 +102,7 @@
 .nav-item:after {
   content: "";
   display: block;
-  height: 2px;
+  height: 3px;
   width: 0;
   background: transparent;
   transition: width 0.7s ease, background-color 0.5s ease;
