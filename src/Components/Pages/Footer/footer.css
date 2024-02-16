@@ -11,21 +11,105 @@
   }
   
   .content-container {
-    background-color: green;
+    background-color: #fff;
     height: 500px;
   }
   .footer-container {
     background-color: #004771;
-    height: 200px;
+    height: 350px;
   }
   .row{
-    height:200px;
+   background-color: #004771;
+   margin-top: -10;
+  }
+  .row-3{
+    background-color: #004771;
+    border-top:0.5px solid #fff  ;
+    padding-top:5px;
+    height:80px
+   }
+  .image-col{
+    text-align: center;
+    height: 500px; 
+  }
+  .background-img{
+    text-align: center;
+    width:350px;
+    padding:70px 0px
+  }
+  .mobile-img{
+    position: 'absolute';
+    top: '250px';
+    left: '420px';
+    transform: 'translate(-50%, -50%)';
+    width: '280px'; 
+    height: 'auto'l
+  }
+  .text-col{
+    text-align: left;
+  }
+  .text-div{
+    margin: 10% 20% 0% 10%;
+  }
+  .normal-text{
+    font-size: 20px;
+  }
+  .heading-text{
+    font-size: 30px;
+    font-weight: 600;
+    color: #004771;
+  }
+  .google_btn{
+    margin:20px 0px 0px 20px;
+
+width: 150px;
+  }
+  .apple_btn{
+    margin-top:20px;
+    width: 150px;
+  }
+  .footer-row1{
+  }
+
+  .left-container{
+    margin:20px 20px 0px 70px;
+    padding-left:40px;
+    background-color:  #004771;
+  }
+  .footer-normal-text{
+    font-size: 20px;
+    color: #fff;
+  }
+  .footer-heading-text{
+    /* margin-top: 0px; */
+    font-size: 30px;
+    font-weight: 600;
+    color: #fff;
 
   }
-  .image-col{
-    background-color: #72b8e0;
+  .middle-container{
+    margin:50px 20px 0px 200px;
+    padding-left:40px;
+    background-color:  #004771;
   }
-  .des-col{
-    background-color: #020f17;
+  .right-container{
+    margin:50px 200px 0px 20px;
+    padding-left:40px;
+    background-color:  #004771;
   }
-  
+  .footer-link{
+    font-size: 20px;
+    text-decoration: none;
+    color: #fff;
+  }
+
+  .circular-button {
+    width: 60px; /* Adjust the width and height as needed for your circular button */
+    height: 60px;
+    border-radius: 50%; /* Ensure the button is circular */
+    border-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5px; /* Adjust the margin as needed for spacing between buttons */
+  }
