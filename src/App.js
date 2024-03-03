@@ -5,11 +5,14 @@ import GlobalContext from "./Context/Context";
 import "bootstrap/dist/css/bootstrap.min.css";
 import 'react-datepicker/dist/react-datepicker.css';
 import LoginRedirect from "./Components/Shared/LoginRedirect";
-
+import { Provider } from 'react-redux';
+import store from './Store/store';
 
 
 function App() {
   return (
+    <Provider store={store}>
+
     <Router>
       <Switch>
         <Route exact path={"*"}>
@@ -19,6 +22,8 @@ function App() {
         </Route>
       </Switch>
     </Router>
+    </Provider>
+
   );
 }
 

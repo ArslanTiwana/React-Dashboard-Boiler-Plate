@@ -15,7 +15,6 @@ const UserTable = ({ refresh, setRefresh, setUserForm, setUserId }) => {
   const [loading, setLoading] = useState(false);
   const [filteredData, setFilteredData] = useState(data);
   const [search, setSearch] = useState("");
-  const [modalVisible, setModalVisible] = useState(false);
 
   const changeUserStatus = (id, action) => {
     swal({

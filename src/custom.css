@@ -223,6 +223,8 @@
   }
   .ant-menu-style{
     font-weight: 500;
+    /* width:20%; */
+    margin-top:30px
   }
   .sidebar-tab{
     margin: 20px;

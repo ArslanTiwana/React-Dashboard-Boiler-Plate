@@ -11,7 +11,7 @@ const Apex = () => {
 
 		return (
 			<div>
-              <main id={sidebarToggle ? "main" : "main2"}>
+              <main id="main">
 			<React.Fragment>
 				<Row>
 					<Col sm={24} md={24} lg={12}>

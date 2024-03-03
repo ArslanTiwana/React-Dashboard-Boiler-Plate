@@ -13,7 +13,7 @@ import App from "../../App";
 
 const { Header } = Layout;
 
-const TopBar = ({ history, setOpen, isMobile }) => {
+const TopBar = ({ setRefresh,history, setOpen, isMobile,toggleCollapsed, }) => {
   const { setSidebarToggle, sidebarToggle,toggleSidebar , userDetails } = useContext(context);
   const [returnLogout, setReturnLogout] = useState(false);
 
@@ -67,9 +67,9 @@ const TopBar = ({ history, setOpen, isMobile }) => {
         <i
           className=" toggle-sidebar-btn"
           onClick={() => {
-            setOpen((prev) => !prev);
-            // setSidebarToggle(!sidebarToggle);
+            // setOpen((prev) => !prev);
             toggleSidebar()
+            setRefresh(prev=>!prev)
           }}
         >
           {sidebarToggle ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}

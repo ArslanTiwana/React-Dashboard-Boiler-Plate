@@ -4,7 +4,7 @@ import context from './ContextState';
 
 const State = (props) => {
     const [sidebarToggle, setSidebarToggle] = useState(true);
-    const [userDetails,setUserDetails]=useState({userType:'plates'})
+    const [userDetails,setUserDetails]=useState({userType:'admin'})
     const toggleSidebar = () => {
         setSidebarToggle((prev) => !prev);
       };

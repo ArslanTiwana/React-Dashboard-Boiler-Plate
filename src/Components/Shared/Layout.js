@@ -13,46 +13,47 @@ import Charts from "../Admin Dashboard/charts";
 import { Drawer, Grid } from "antd";
 import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 import ViewLogs from "../Logs/ViewLogs";
+import { useSelector } from 'react-redux';
 
 function Layout() {
-  const { setUserDetails, userDetails } = useContext(context);
-  const { useBreakpoint } = Grid;
-  const { sidebarToggle } = useContext(context);
+  // const { useBreakpoint } = Grid;
   const [open, setOpen] = useState(false);
-  const [refresh,setrefresh]=useState(false)
+  const [refresh,setRefresh]=useState(true)
+  const sidebar = useSelector((state) => state.sidebar);
 
 
   const onClose = () => {
     setOpen(false);
   };
 
-  useEffect(() => {
-    const user = localStorage.getItem("user");
-    if (user) {
-      setUserDetails(JSON.parse(user));
-    }
-  },[]);
+  // useEffect(() => {
+  //   const user = localStorage.getItem("user");
+  //   if (user) {
+  //     setUserDetails(JSON.parse(user));
+  //   }
+  // },[]);
 
-  const getBreakPoint = (screens) => {
-    let breakpoints = [];
-    for (const key in screens) {
-      if (screens.hasOwnProperty(key)) {
-        const element = screens[key];
-        if (element) {
-          breakpoints.push(key);
-        }
-      }
-    }
-    return breakpoints;
-  };
-  const screens = getBreakPoint(useBreakpoint());
-  const isMobile = screens.length === 0 ? false : !screens.includes("lg");
+  // const getBreakPoint = (screens) => {
+  //   let breakpoints = [];
+  //   for (const key in screens) {
+  //     if (screens.hasOwnProperty(key)) {
+  //       const element = screens[key];
+  //       if (element) {
+  //         breakpoints.push(key);
+  //       }
+  //     }
+  //   }
+  //   return breakpoints;
+  // };
+  // const screens = getBreakPoint(useBreakpoint());
+  // const isMobile = screens.length === 0 ? false : !screens.includes("lg");
+  const user = localStorage.getItem("user");
 
-  console.log(userDetails?.userType)
+  const userDetails = JSON.parse(user)
   const MainContent = () => (
-    <div style={{ left: sidebarToggle && -250 }}>
-      <TopBar {...{ setOpen, onClose ,isMobile}} />
-      {isMobile ? (
+    <div>
+      <TopBar setRefresh={setRefresh} />
+      {/* {isMobile ? (
         <Drawer
           title="Basic Drawer"
           placement={"left"}
@@ -63,56 +64,61 @@ function Layout() {
           <SideBar {...{ onClose }} />
         </Drawer>
       ) : (
-        sidebarToggle && <SideBar {...{ onClose }} />
-      )}
-      <Switch>
-        <Route exact path="/">
-          {[
-            "admin",
-            "accountant",
-            "work",
-            "plates",
-            "film",
-            "wedding_card",
-            "offset",
-            "panaflex",
-            "color_print",
-          ].includes(userDetails?.userType) ? (
-            <Charts />
-          ) : (
-            <Redirect to="/unauthorized" />
-          )}
-        </Route>
-        <Route exact path="/viewUsers">
-          {[
-            "admin",
-            "accountant",
-            "work",
-            "plates",
-            "film",
-            "wedding_card",
-            "offset",
-            "panaflex",
-            "color_print",
-          ].includes(userDetails?.userType) ? (
-            <ViewUsers />
-          ) : (
-            <Redirect to="/unauthorized" />
-          )}
-        </Route>
-        <Route exact path="/logs">
-          {[
-            "admin",
-          ].includes(userDetails?.userType) ? (
-            <ViewLogs />
-          ) : (
-            <Redirect to="/unauthorized" />
-          )}
-        </Route>
-        <Route>
-          <Redirect to="/notfound" />
-        </Route>
-      </Switch>
+        ''
+      )} */}
+      <div style={{ width: '100%', display: 'flex', marginTop: 60 }} >
+        <div style={{ width: refresh? '20%':'10%' }}><SideBar onClose={onClose}  /></div>
+        <div style={{ width: '100%' }}>
+          <Switch>
+            <Route exact path="/">
+              {[
+                "admin",
+                "accountant",
+                "work",
+                "plates",
+                "film",
+                "wedding_card",
+                "offset",
+                "panaflex",
+                "color_print",
+              ].includes(userDetails?.userType) ? (
+                <Charts />
+              ) : (
+                <Redirect to="/unauthorized" />
+              )}
+            </Route>
+            <Route exact path="/viewUsers">
+              {[
+                "admin",
+                "accountant",
+                "work",
+                "plates",
+                "film",
+                "wedding_card",
+                "offset",
+                "panaflex",
+                "color_print",
+              ].includes(userDetails?.userType) ? (
+                <ViewUsers />
+              ) : (
+                <Redirect to="/unauthorized" />
+              )}
+            </Route>
+            <Route exact path="/logs">
+              {[
+                "admin",
+              ].includes(userDetails?.userType) ? (
+                <ViewLogs />
+              ) : (
+                <Redirect to="/unauthorized" />
+              )}
+            </Route>
+            <Route>
+              <Redirect to="/notfound" />
+            </Route>
+          </Switch>
+        </div>
+      </div>
     </div>
   );
   return (

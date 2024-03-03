@@ -4,15 +4,15 @@ import { Card, Breadcrumb, Button, Row, Col } from "antd";
 import context from "../../Context/ContextState";
 import UsersTable from "./UsersTable";
 import UserForm from "./UserForm";
-
+import { useSelector } from 'react-redux';
 const { Meta } = Card;
 
-const ViewUsers = () => {
+const ViewUsers =React.memo(() => {
   const [userForm, setUserForm] = useState(false);
   const [userId, setUserId] = useState(null);
   const [refresh, setRefresh] = useState(false);
   const { sidebarToggle } = useContext(context);
-
+  const sidebar = useSelector((state) => state.sidebar);
   return (
     <div>
       {userForm ? (
@@ -24,9 +24,13 @@ const ViewUsers = () => {
           setUserId={setUserId}
         />
       ) : null}{" "}
-      <main id={sidebarToggle ? "main" : "main2"}>
+      <main id={"main" }>
         <div className="pagetitle">
           <h1>Users</h1>
+          <div>
+      {/* <button onClick={() => dispatch(increment())}>Increment</button>
+      <button onClick={() => dispatch(decrement())}>Decrement</button> */}
+    </div>
           <nav>
             <Row>
               <Col md={18}>
@@ -66,6 +70,6 @@ const ViewUsers = () => {
       </main>
     </div>
   );
-};
+});
 
 export default ViewUsers;

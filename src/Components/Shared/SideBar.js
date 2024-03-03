@@ -1,22 +1,18 @@
 import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router-dom/cjs/react-router-dom.min";
-import { Layout, Menu } from "antd";
+import { Layout, Menu, Button } from "antd";
 import {
-  AppstoreOutlined,
   TeamOutlined,
   DashboardOutlined,
-  UpOutlined,
-  DownOutlined
-} from "@ant-design/icons";
-import context from "../../Context/ContextState";
 
-const { Sider } = Layout;
-const { SubMenu } = Menu;
+} from "@ant-design/icons";
+
+import context from "../../Context/ContextState";
 
 const SideBar = ({ onClose }) => {
   const [selectedBtn, setSelectedBtn] = useState("Dashboard");
-  const { userDetails } = useContext(context);
+  const { userDetails, sidebarToggle } = useContext(context);
 
   const tabsByUserType = {
     admin: [
@@ -47,10 +43,8 @@ const SideBar = ({ onClose }) => {
 
   const shouldRenderTab = (tab) => userTabs.includes(tab);
   return (
-    <>
-      <aside id="sidebar" className="sidebar">
-        <span className="sidebar-tab">DASHBOARD</span>
-      <Menu theme="light" mode="vertical" defaultSelectedKeys={["Dashboard"]} className="ant-menu-style">
+    <div>
+      <Menu theme="light" mode="vertical" defaultSelectedKeys={["Dashboard"]} inlineCollapsed={!sidebarToggle}>
         {shouldRenderTab("Dashboard") && (
           <Menu.Item
             key="Dashboard"
@@ -59,8 +53,8 @@ const SideBar = ({ onClose }) => {
               setSelectedBtn("Dashboard");
               onClose();
             }}
-          > 
-           Dashboard
+          >
+            Dashboard
             <Link to="/" className="nav-link">
             </Link>
           </Menu.Item>
@@ -92,69 +86,10 @@ const SideBar = ({ onClose }) => {
             </Link>
           </Menu.Item>
         )}
-         {/* {shouldRenderTab("Users") && (
-          <SubMenu key="Users" icon={<TeamOutlined />} title="Users">
-            <Menu.Item
-              key="viewUsers"
-              onClick={() => {
-                setSelectedBtn("viewUsers");
-                onClose();
-              }}
-            >
-              <Link to="/viewusers" className="nav-link">
-                View Users
-              </Link>
-            </Menu.Item>
-            <Menu.Item
-              key="addUser"
-              onClick={() => {
-                setSelectedBtn("addUser");
-                onClose();
-              }}
-            >
-              <Link to="/adduser" className="nav-link">
-                Add User
-              </Link>
-            </Menu.Item>
-          </SubMenu>
-        )} */}
-
       </Menu>
-      {/* <span className="sidebar-tab">DASHBOARD</span>
-      <Menu theme="light" mode="vertical" defaultSelectedKeys={["Dashboard"]} className="ant-menu-style">
-        {shouldRenderTab("Dashboard") && (
-          <Menu.Item
-            key="Dashboard"
-            icon={<DashboardOutlined />}
-            onClick={() => {
-              setSelectedBtn("Dashboard");
-              onClose();
-            }}
-          > 
-           Dashboard
-            <Link to="/" className="nav-link">
-            </Link>
-          </Menu.Item>
-        )}
-
-        {shouldRenderTab("Users") && (
-          <Menu.Item
-            key="Users"
-            icon={<TeamOutlined />}
-            onClick={() => {
-              setSelectedBtn("Users");
-              onClose();
-            }}
-          > Users
-            <Link to="/viewusers" className="nav-link">
-            </Link>
-          </Menu.Item>
-        )}
-      </Menu> */}
-    
-      </aside>
-    </>
+    </div>
   );
 };
 
 export default withRouter(SideBar);
+
