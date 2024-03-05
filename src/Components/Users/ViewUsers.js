@@ -1,20 +1,20 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { Card, Breadcrumb, Button, Row, Col } from "antd";
-import context from "../../Context/ContextState";
 import UsersTable from "./UsersTable";
 import UserForm from "./UserForm";
-import { useSelector } from 'react-redux';
+import context from "../../Context/ContextState";
+
 const { Meta } = Card;
 
-const ViewUsers =React.memo(() => {
+const ViewUsers =() => {
   const [userForm, setUserForm] = useState(false);
   const [userId, setUserId] = useState(null);
   const [refresh, setRefresh] = useState(false);
-  const { sidebarToggle } = useContext(context);
-  const sidebar = useSelector((state) => state.sidebar);
+  const { sidebarToggle,isMobile } = useContext(context);
+
   return (
-    <div>
+    <div style={{width:sidebarToggle?"80%":isMobile?'90%':'95%'}} className="content-div">
       {userForm ? (
         <UserForm
           setUserForm={setUserForm}
@@ -24,12 +24,10 @@ const ViewUsers =React.memo(() => {
           setUserId={setUserId}
         />
       ) : null}{" "}
-      <main id={"main" }>
+      <main id={"main"}>
         <div className="pagetitle">
           <h1>Users</h1>
           <div>
-      {/* <button onClick={() => dispatch(increment())}>Increment</button>
-      <button onClick={() => dispatch(decrement())}>Decrement</button> */}
     </div>
           <nav>
             <Row>
@@ -70,6 +68,6 @@ const ViewUsers =React.memo(() => {
       </main>
     </div>
   );
-});
+}
 
-export default ViewUsers;
+export default React.memo(ViewUsers);

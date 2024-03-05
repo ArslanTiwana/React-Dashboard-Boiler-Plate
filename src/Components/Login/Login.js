@@ -37,6 +37,7 @@ const Login = ({ setValues, values }) => {
   const handleSubmit = (e) => {
     localStorage.setItem("token", '123165465465');
     localStorage.setItem("user", JSON.stringify({userType:'admin'}));
+    localStorage.setItem("siebarButton", 'Dashboard');
 
     history.push({
       pathname: `/`,

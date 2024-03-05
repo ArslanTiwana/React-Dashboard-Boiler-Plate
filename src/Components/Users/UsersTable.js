@@ -6,7 +6,6 @@ import {
   EditOutlined,
   DeleteOutlined,
 } from "@ant-design/icons";
-import { Spinner } from "reactstrap";
 import { Apis } from "../Apis";
 import swal from "sweetalert";
 
@@ -15,6 +14,8 @@ const UserTable = ({ refresh, setRefresh, setUserForm, setUserId }) => {
   const [loading, setLoading] = useState(false);
   const [filteredData, setFilteredData] = useState(data);
   const [search, setSearch] = useState("");
+
+  console.info("rendered UserTable")
 
   const changeUserStatus = (id, action) => {
     swal({
@@ -91,6 +92,7 @@ const UserTable = ({ refresh, setRefresh, setUserForm, setUserId }) => {
 
   useEffect(() => {
     setLoading(true);
+    console.log("called")
     Apis()
       .getUsers()
       .then((res) => {
@@ -109,7 +111,7 @@ const UserTable = ({ refresh, setRefresh, setUserForm, setUserId }) => {
       .catch((err) => {
         setLoading(false);
       });
-  }, [refresh]);
+  }, []);
 
   useEffect(() => {
     if (data.length !== 0) {
@@ -235,9 +237,9 @@ const UserTable = ({ refresh, setRefresh, setUserForm, setUserId }) => {
             />
           )}
         />
-</Spin>
+      </Spin>
     </div>
   );
 };
 
-export default UserTable;
+export default React.memo(UserTable);

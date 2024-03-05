@@ -22,6 +22,7 @@ const UserForm = ({ setUserForm, refresh, setRefresh, userId, setUserId }) => {
     const { name, value } = e.target;
     form.setFieldsValue({ [name]: value });
   };
+  console.info("rendered UserForm")
 
   useEffect(() => {
     if (userId != null) {

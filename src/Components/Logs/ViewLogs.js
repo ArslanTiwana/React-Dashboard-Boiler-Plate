@@ -12,8 +12,8 @@ const ViewLogs = () => {
   const { sidebarToggle } = useContext(context);
 
   return (
-    <div>
-      <main id={sidebarToggle ? "main" : "main2"}>
+    <div style={{width:sidebarToggle?"80%":'95%'}} className="content-div">
+      <main id="main">
         <div className="pagetitle">
           <h1>Logs</h1>
           <nav>

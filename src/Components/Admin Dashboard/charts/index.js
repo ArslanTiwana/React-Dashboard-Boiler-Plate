@@ -10,7 +10,7 @@ const Apex = () => {
 		const { sidebarToggle } = useContext(context)
 
 		return (
-			<div>
+			<div style={{width:sidebarToggle?"80%":'95%'}}>
               <main id="main">
 			<React.Fragment>
 				<Row>

@@ -243,4 +243,76 @@
     padding-left: 0px !important;
     padding-right: 0px !important;
   }
+  .pt-serif-regular {
+    font-family: "PT Serif", serif;
+    font-weight: 400;
+    font-style: normal;
+  }
   
+  .pt-serif-bold {
+    font-family: "PT Serif", serif;
+    font-weight: 700;
+    font-style: normal;
+  }
+  
+  .pt-serif-regular-italic {
+    font-family: "PT Serif", serif;
+    font-weight: 400;
+    font-style: italic;
+  }
+  
+  .pt-serif-bold-italic {
+    font-family: "PT Serif", serif;
+    font-weight: 700;
+    font-style: italic;
+  }
+  .sidebar-text{
+    font-family: 'Roboto';
+    font-size: 18px;
+    font-weight: 500;
+  }
+  .ant-menu-inline{
+    height:100%
+  }
+  .calendar {
+    
+    .calendar-event {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        li {
+            margin-bottom: 5px;
+
+           
+        }
+    }
+
+    .calendar-list {
+        margin-bottom: 2rem;
+
+        .calendar-list-item {
+            padding: 5px 10px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            display: flex;
+            margin-left: 20px;
+            background-color: #f7f7f8;
+            align-items: center;
+            justify-content: space-between;
+
+           
+          
+
+
+            .calendar-list-item-delete {
+                opacity: 1;
+                cursor: pointer;
+                font-size: 14px;
+                transition: all 0.1s ease-in-out;
+
+              
+            }
+        }
+    }
+}

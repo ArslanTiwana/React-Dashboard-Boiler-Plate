@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Input, Button, Space } from 'antd';
+import { Table, Input, Button, Space, Card } from 'antd';
 import { debounce } from 'lodash';
 import { SearchOutlined } from '@ant-design/icons';
+import ReactDOMServer from 'react-dom/server';
+import TopBar from '../Shared/TopBar';
+import Login from '../Login/Login';
+import Apex from '../Admin Dashboard/charts';
 
 const LogsTable = () => {
   const [data, setData] = useState([]);
@@ -304,10 +308,95 @@ const LogsTable = () => {
     },
     // Add similar columns for 'Type', 'Description', and 'Client Id'
   ];
+  const handlePrint = () => {
+    const printWindow = window.open('', '_blank');
+    const columns = [
+      {
+        title: 'IMEI',
+        dataIndex: 'imei',
+        key: 'imei',
+      },
+      {
+        title: 'Type',
+        dataIndex: 'type',
+        key: 'type',
+       
+      },
+      {
+        title: 'Client Id',
+        dataIndex: 'clientId',
+        key: 'clientId',
+        // Add a filter for searching in this column
+        
+      },
+      {
+        title: 'IMEI',
+        dataIndex: 'imei',
+        key: 'imei',
+        // Add a filter for searching in this column
+      },
+      // Add similar columns for 'Type', 'Description', and 'Client Id'
+    ];
+    if (printWindow) {
+      const printContent = (
+        <>
+                    <div style={{ marginBottom: '20px', textAlign: 'center' }}>
+            <img src="path/to/logo.png" alt="Company Logo" style={{ maxWidth: '100%', maxHeight: '100px' }} />
+            <h2>Company Name</h2>
+            <p>Your company tagline or additional information</p>
+          </div>
+          <div style={{ marginBottom: '20px', textAlign: 'center' }}>
+            <style>{`
+              table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 16px;
+              }
+              th, td {
+                border: 1px solid #ddd;
+                padding: 8px;
+                text-align: left;
+              }
+              th {
+                background-color: #f2f2f2;
+              }
+            `}</style>
+            <Table
+              dataSource={data}
+              columns={columns}
+              pagination={false} // Disable pagination in print view
+              onChange={handleTableChange}
+              bordered
+              size="middle"
+            />
+          </div>
+        </>
+      );
+      const printContentHtml = ReactDOMServer.renderToString(printContent);
 
+      printWindow.document.write(`
+        <html>
+          <head>
+            <title>Print</title>
+            <link rel="stylesheet" type="text/css" href="your-styles.css" />
+          </head>
+          <body>${printContentHtml}</body>
+        </html>
+      `);
+
+      printWindow.document.close();
+      printWindow.print();
+    } else {
+      // Handle if pop-up is blocked
+      alert('Please allow pop-ups to print.');
+    }
+  };
   return (
     <div>
       <Space direction="vertical" style={{ width: '100%' }}>
+      <Button type="primary" onClick={handlePrint} style={{ marginBottom: 16 }}>
+        Print
+      </Button>
         <Space>
           <Input
             placeholder="IMEI"

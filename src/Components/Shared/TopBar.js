@@ -13,8 +13,8 @@ import App from "../../App";
 
 const { Header } = Layout;
 
-const TopBar = ({ setRefresh,history, setOpen, isMobile,toggleCollapsed, }) => {
-  const { setSidebarToggle, sidebarToggle,toggleSidebar , userDetails } = useContext(context);
+const TopBar = ({ history }) => {
+  const { setSidebarToggle, sidebarToggle,toggleSidebar , userDetails,isMobile } = useContext(context);
   const [returnLogout, setReturnLogout] = useState(false);
 
   const handleClick = () => {
@@ -64,16 +64,17 @@ const TopBar = ({ setRefresh,history, setOpen, isMobile,toggleCollapsed, }) => {
           </span>
           
         </div>}
-        <i
+       {!isMobile &&<i
           className=" toggle-sidebar-btn"
           onClick={() => {
-            // setOpen((prev) => !prev);
             toggleSidebar()
-            setRefresh(prev=>!prev)
+            // setRefresh(prev=>!prev)
           }}
         >
           {sidebarToggle ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+        
         </i>
+}
       </div>
       <Menu theme="light" mode="horizontal" className="ms-auto" style={{height:60}}>
         <Menu.Item key="profile" className="nav-item dropdown pe-3">
@@ -98,4 +99,4 @@ const TopBar = ({ setRefresh,history, setOpen, isMobile,toggleCollapsed, }) => {
 
 };
 
-export default withRouter(TopBar);
+export default React.memo(TopBar);

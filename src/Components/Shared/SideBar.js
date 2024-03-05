@@ -1,18 +1,20 @@
 import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router-dom/cjs/react-router-dom.min";
-import { Layout, Menu, Button } from "antd";
+import { Layout, Menu, Button, Grid } from "antd";
 import {
   TeamOutlined,
   DashboardOutlined,
+  SettingOutlined
 
 } from "@ant-design/icons";
 
 import context from "../../Context/ContextState";
+import SubMenu from "antd/es/menu/SubMenu";
 
-const SideBar = ({ onClose }) => {
+const SideBar = () => {
   const [selectedBtn, setSelectedBtn] = useState("Dashboard");
-  const { userDetails, sidebarToggle } = useContext(context);
+  const { userDetails, sidebarToggle,isMobile } = useContext(context);
 
   const tabsByUserType = {
     admin: [
@@ -27,6 +29,7 @@ const SideBar = ({ onClose }) => {
       "Clients",
       "Business",
       "Settings",
+      "Calender",
     ],
     work: ["Dashboard", "CreateOrder", "Job Cards", "Clients"],
     accountant: ["Dashboard"],
@@ -43,18 +46,18 @@ const SideBar = ({ onClose }) => {
 
   const shouldRenderTab = (tab) => userTabs.includes(tab);
   return (
-    <div>
-      <Menu theme="light" mode="vertical" defaultSelectedKeys={["Dashboard"]} inlineCollapsed={!sidebarToggle}>
+    <div style={{ width: sidebarToggle && !isMobile?'20%':isMobile?'10%':'5%' ,marginTop:20}}>
+      
+      <Menu theme="light" mode="inline"  defaultSelectedKeys={[localStorage.getItem("siebarButton")]} inlineCollapsed={isMobile || !sidebarToggle}>
         {shouldRenderTab("Dashboard") && (
           <Menu.Item
             key="Dashboard"
             icon={<DashboardOutlined />}
             onClick={() => {
-              setSelectedBtn("Dashboard");
-              onClose();
+              localStorage.setItem("siebarButton", 'Dashboard');
             }}
           >
-            Dashboard
+            <span className="sidebar-text" > Dashboard</span>
             <Link to="/" className="nav-link">
             </Link>
           </Menu.Item>
@@ -65,11 +68,11 @@ const SideBar = ({ onClose }) => {
             key="Users"
             icon={<TeamOutlined />}
             onClick={() => {
-              setSelectedBtn("Users");
-              onClose();
+              localStorage.setItem("siebarButton", 'Users');
             }}
-          > Users
-            <Link to="/viewusers" className="nav-link">
+          >
+           <span className="sidebar-text">Users</span> 
+           <Link to="/viewusers" className="nav-link">
             </Link>
           </Menu.Item>
         )}
@@ -79,17 +82,43 @@ const SideBar = ({ onClose }) => {
             icon={<TeamOutlined />}
             onClick={() => {
               setSelectedBtn("Logs");
-              onClose();
+              localStorage.setItem("siebarButton", 'Logs');
+
             }}
-          > Logs
+          >
+            <span className="sidebar-text">Logs</span> 
             <Link to="/logs" className="nav-link">
             </Link>
           </Menu.Item>
         )}
+        {shouldRenderTab("Calender") && (
+          <Menu.Item
+            key="Calender"
+            icon={<TeamOutlined />}
+            onClick={() => {
+              localStorage.setItem("siebarButton", 'Calender');
+
+            }}
+          >
+            <span className="sidebar-text">Calender</span> 
+            <Link to="/calender" className="nav-link">
+            </Link>
+          </Menu.Item>
+        )}
+         <SubMenu
+          key="Settings"
+          icon={<SettingOutlined />}
+          title={<span className="sidebar-text">Settings</span>}
+        >
+          <Menu.Item key="Profile">
+            <span>Profile</span>
+            <Link to="/settings/profile" className="nav-link"></Link>
+          </Menu.Item>
+        </SubMenu>
       </Menu>
     </div>
   );
 };
 
-export default withRouter(SideBar);
+export default React.memo(SideBar);
 

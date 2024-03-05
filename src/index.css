@@ -14,3 +14,14 @@ code {
 /* h1,h2,h3,h4,h5,p,span{
   font-family: 'Roboto';
 } */
+@media (min-width: 700px) and (max-width:1400px)  {
+  .content-div {
+    margin-left: 0%;
+  }
+}
+@media (min-width: 230px) and (max-width:600px) {
+  .content-div {
+    margin-left: 10%;
+  }
+}
+
